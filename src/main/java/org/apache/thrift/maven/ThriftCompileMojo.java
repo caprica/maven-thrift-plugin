@@ -19,11 +19,12 @@ package org.apache.thrift.maven;
  * under the License.
  */
 
-import com.google.common.collect.ImmutableList;
-import org.apache.maven.artifact.Artifact;
-
 import java.io.File;
 import java.util.List;
+
+import org.apache.maven.artifact.Artifact;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * This mojo executes the {@code thrift} compiler for generating java sources
@@ -76,7 +77,8 @@ public final class ThriftCompileMojo extends AbstractThriftMojo {
     @Override
     protected void attachFiles() {
         project.addCompileSourceRoot(outputDirectory.getAbsolutePath());
-        projectHelper.addResource(project, thriftSourceRoot.getAbsolutePath(),
-                ImmutableList.of("**/*.thrift"), ImmutableList.of());
+        if (attachThriftFiles) {
+            projectHelper.addResource(project, thriftSourceRoot.getAbsolutePath(), ImmutableList.of("**/*.thrift"), ImmutableList.of());
+        }
     }
 }

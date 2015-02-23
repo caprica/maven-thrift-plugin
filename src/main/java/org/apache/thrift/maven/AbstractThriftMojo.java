@@ -19,17 +19,16 @@ package org.apache.thrift.maven;
  * under the License.
  */
 
-import com.google.common.base.Joiner;
-import com.google.common.collect.ImmutableSet;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.MavenProjectHelper;
-import org.codehaus.plexus.util.cli.CommandLineException;
-import org.codehaus.plexus.util.io.RawInputStreamFacade;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.collect.Sets.newHashSet;
+import static java.lang.String.format;
+import static java.util.Arrays.asList;
+import static java.util.Collections.list;
+import static org.codehaus.plexus.util.FileUtils.cleanDirectory;
+import static org.codehaus.plexus.util.FileUtils.copyStreamToFile;
+import static org.codehaus.plexus.util.FileUtils.getFiles;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -41,16 +40,18 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
-import static com.google.common.collect.Sets.newHashSet;
-import static java.lang.String.format;
-import static java.util.Arrays.asList;
-import static java.util.Collections.list;
-import static org.codehaus.plexus.util.FileUtils.cleanDirectory;
-import static org.codehaus.plexus.util.FileUtils.copyStreamToFile;
-import static org.codehaus.plexus.util.FileUtils.getFiles;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.MavenProjectHelper;
+import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.io.RawInputStreamFacade;
+
+import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Abstract Mojo implementation.
@@ -158,8 +159,14 @@ abstract class AbstractThriftMojo extends AbstractMojo {
     private boolean checkStaleness = false;
 
     /**
+     * @parameter default-value="true"
+     */
+    protected boolean attachThriftFiles = true;
+
+    /**
      * Executes the mojo.
      */
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         checkParameters();
         final File thriftSourceRoot = getThriftSourceRoot();
@@ -305,6 +312,7 @@ abstract class AbstractThriftMojo extends AbstractMojo {
                 }
             } else if (classpathElementFile.isDirectory()) {
                 File[] thriftFiles = classpathElementFile.listFiles(new FilenameFilter() {
+                    @Override
                     public boolean accept(File dir, String name) {
                         return name.endsWith(THRIFT_FILE_SUFFIX);
                     }
