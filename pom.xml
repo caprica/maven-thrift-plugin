@@ -1,13 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.apache.thrift.tools</groupId>
+    <groupId>uk.co.caprica.thrift.tools</groupId>
     <artifactId>thrift-maven-plugin</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
     <packaging>maven-plugin</packaging>
+
     <name>Maven Thrift Plugin</name>
-    <version>0.1.13-SNAPSHOT</version>
     <description>Maven Thrift Plugin that executes the thrift code generator</description>
-    <url>https://github.com/dtrott/maven-thrift-plugin</url>
+
+    <url>https://github.com/caprica/maven-thrift-plugin</url>
 
     <prerequisites>
         <maven>2.0.6</maven>
@@ -22,10 +30,10 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/dtrott/maven-thrift-plugin</url>
-        <connection>scm:git:git@github.com:dtrott/maven-thrift-plugin.git</connection>
-      <tag>HEAD</tag>
-  </scm>
+        <url>https://github.com/caprica/maven-thrift-plugin</url>
+        <connection>scm:git:git@github.com:caprica/maven-thrift-plugin.git</connection>
+        <tag>HEAD</tag>
+    </scm>
 
     <developers>
         <developer>
@@ -34,20 +42,6 @@
             <email>github@davidtrott.com</email>
         </developer>
     </developers>
-
-    <distributionManagement>
-        <downloadUrl>http://maven.davidtrott.com/repository</downloadUrl>
-        <repository>
-            <id>dtrott-public</id>
-            <name>David Trott's Public Repository</name>
-            <url>file:///repositories/maven.davidtrott.com/release</url>
-        </repository>
-        <snapshotRepository>
-            <id>dtrott-public</id>
-            <name>David Trott's Public Snapshot Repository</name>
-            <url>file:///repositories/maven.davidtrott.com/snapshot</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,52 +59,80 @@
                 </configuration>
             </plugin>
         </plugins>
-
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ftp</artifactId>
-                <version>1.0-beta-6</version>
-            </extension>
-        </extensions>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.apache.maven.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            maven-plugin-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [3.2,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>descriptor</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.5</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>3.0.4</version>
+            <version>3.2.5</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>15.0</version>
+            <version>18.0</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <version>3.0.8</version>
+            <version>3.0.21</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-project</artifactId>
-            <version>2.2.0</version>
+            <version>2.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.5.8</version>
+            <version>1.7.10</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.5.8</version>
+            <version>1.7.10</version>
         </dependency>
     </dependencies>
+
 </project>
