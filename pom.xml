@@ -6,6 +6,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
+
     <groupId>uk.co.caprica.thrift.tools</groupId>
     <artifactId>thrift-maven-plugin</artifactId>
     <version>1.0.0-SNAPSHOT</version>
