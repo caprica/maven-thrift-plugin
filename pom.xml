@@ -36,9 +36,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/caprica/maven-thrift-plugin</url>
         <connection>scm:git:git@github.com:caprica/maven-thrift-plugin.git</connection>
-        <tag>HEAD</tag>
+        <developerConnection>scm:git:git@github.com:caprica/maven-thrift-plugin.git</developerConnection>
+        <url>git@github.com:caprica/maven-thrift-plugin.git</url>
     </scm>
 
     <developers>
@@ -46,6 +46,17 @@
             <id>drott</id>
             <name>David Trott</name>
             <email>github@davidtrott.com</email>
+        </developer>
+        <developer>
+            <id>mark</id>
+            <name>Mark Lee</name>
+            <email>mark.lee@capricasoftware.co.uk</email>
+            <organization>Caprica Software Limited</organization>
+            <organizationUrl>http://www.capricasoftware.co.uk</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>0</timezone>
         </developer>
     </developers>
 
